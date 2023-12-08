@@ -6,6 +6,7 @@ import com.sector.response.UserResponse;
 import com.sector.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/user")
@@ -16,14 +17,13 @@ public class UserController {
 
     private final UserService userService;
 
-
     @PostMapping("/sign-up")
-    public UserResponse signUp(@Valid @RequestBody UserRegistrationRequest request){
-       return userService.createUser(request);
+    public ResponseEntity<UserResponse> signUp(@Valid @RequestBody UserRegistrationRequest request){
+       return ResponseEntity.ok(userService.createUser(request));
     }
 
     @PostMapping("/login")
-    public UserResponse login(@Valid @RequestBody LoginRequest request){
-        return userService.login(request);
+    public ResponseEntity<UserResponse> login(@Valid @RequestBody LoginRequest request){
+        return ResponseEntity.ok(userService.login(request));
     }
 }

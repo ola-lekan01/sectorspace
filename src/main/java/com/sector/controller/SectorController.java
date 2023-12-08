@@ -7,6 +7,7 @@ import com.sector.service.SectorInitializer;
 import com.sector.service.SectorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,17 +23,17 @@ public class SectorController {
     private final SectorInitializer sectorInitializer;
 
     @PostMapping("/create")
-    public List<SectorResponse> createSector(@Valid @RequestBody SectorRequest request){
-        return sectorService.createSector(request);
+    public ResponseEntity<List<SectorResponse>> createSector(@Valid @RequestBody SectorRequest request){
+        return ResponseEntity.ok(sectorService.createSector(request));
     }
 
     @GetMapping("/getSector")
-    public List<SectorResponse> getSectorByUserId(@RequestParam("userId") String userId){
-        return sectorService.getSectorByUser(userId);
+    public ResponseEntity<List<SectorResponse>> getSectorByUserId(@RequestParam("userId") String userId){
+        return ResponseEntity.ok(sectorService.getSectorByUser(userId));
     }
 
     @GetMapping("/all")
-    public List<SystemSectorResponse> getSectorByUserId(){
-        return sectorInitializer.getSystemSector();
+    public ResponseEntity<?> getSectorByUserId(){
+        return ResponseEntity.ok(sectorInitializer.getSystemSector());
     }
 }
